@@ -29,6 +29,12 @@ export default {
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
+## GIT
+commit
+```
+git push
+``` 
+
 To do list without itens
 ![image](https://github.com/wemerson38259/todo-react-ts/assets/42281966/f122d2c2-0913-460e-ac78-7a041bffc1b4)
 
