@@ -1,104 +1,98 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-import style from './App.module.css'
+import style from "./App.module.css";
 
-import { Header } from './components/Header'
-import { Input } from './components/Input'
+import { Header } from "./components/Header";
+import { Input } from "./components/Input";
 import { CiCirclePlus } from "react-icons/ci";
-import Item from './components/Item'
-import { ListHeader } from './components/ListHeader';
-import { Button } from './components/Button';
-import Empyt from './components/Empyt';
+import Item from "./components/Item";
+import { ListHeader } from "./components/ListHeader";
+import { Button } from "./components/Button";
+import Empyt from "./components/Empyt";
 
 interface taskProps {
-  id: number
-  text: string
-  isChecked: boolean
+  id: number;
+  text: string;
+  isChecked: boolean;
 }
 function App() {
-  const [task, setTask] = useState<taskProps[]>([])
-  const [inputValue, setInputValue] = useState('')
+  const [task, setTask] = useState<taskProps[]>([]);
+  const [inputValue, setInputValue] = useState("");
 
-  function handleSetTask(){
-    if(!inputValue)
-      return
+  function handleSetTask() {
+    if (!inputValue) return;
 
-    const newTask : taskProps = {
+    const newTask: taskProps = {
       id: Math.random(),
-      text:inputValue,
-      isChecked: false
-    }
-    
-    setTask([...task,newTask])
-    setInputValue('')
+      text: inputValue,
+      isChecked: false,
+    };
+
+    setTask([...task, newTask]);
+    setInputValue("");
   }
 
-  function handleDeleteTask(id: number){
-    const filteredTasks = task.filter((task) => task.id !== id)
-
-    if (!confirm('Deseja mesmo apagar essa tarefa?')) {
-      return
+  function handleDeleteTask(id: number) {
+    if (!confirm("Deseja mesmo apagar essa tarefa?")) {
+      return;
     }
 
-    setTask(filteredTasks)
+    setTask((tasks) => tasks.filter((task) => task.id !== id));
   }
 
-  function handleToggleTask(id: number){
-    const updatedTasks = task.map((task) => {
-      if (task.id === id) {
-        return { ...task, isChecked: !task.isChecked }
-      }
-
-      return { ...task }
-    })
-
-    setTask(updatedTasks)
+  function handleToggleTask(id: number, checked: boolean) {
+    // console.log(id)
+    setTask((tasks) =>
+      tasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, isChecked: checked };
+        }
+        return { ...task };
+      })
+    );
   }
-  
+
   return (
     <main>
       <Header></Header>
       <section className={style.toDoForm}>
         <div className={style.inputDiv}>
           <Input
-          onChange={(e) => setInputValue(e.target.value)}
-          value={inputValue}
-          
+            onChange={(e) => setInputValue(e.target.value)}
+            value={inputValue}
           />
-          <Button
-            onClick={handleSetTask}
-          >
-            Criar 
-            <CiCirclePlus size={16} color="#f2f2f2"/>
+          <Button onClick={handleSetTask}>
+            Criar
+            <CiCirclePlus size={16} color="#f2f2f2" />
           </Button>
         </div>
         <div className={style.toDoList}>
-            <ListHeader 
-              taskAmount={task.length ?? 0}
-              taskDone={task.filter((item) => item.isChecked === true).length ?? 0}
-            />
-            {task.length > 0? (
-              <div>
-                  {task.map((item)=>(
-                      <Item 
-                        key={item.id}
-                        id={item.id}
-                        text={item.text}
-                        isChecked={item.isChecked}
-                        deleteTask={handleDeleteTask}
-                        toggleTask={handleToggleTask}
-                      />
-                  )
-                  )}
-              </div>
-            ) :
-            <Empyt></Empyt>
+          <ListHeader
+            taskAmount={task.length ?? 0}
+            taskDone={
+              task.filter((item) => item.isChecked === true).length ?? 0
             }
-           
+          />
+          {task.length > 0 ? (
+            <div>
+              {task.map((item) => (
+                <Item
+                  key={item.id}
+                  id={item.id}
+                  text={item.text}
+                  isChecked={item.isChecked}
+                  deleteTask={handleDeleteTask}
+                  toggleTask={handleToggleTask}
+                />
+              ))}
+            </div>
+          ) : (
+            <Empyt></Empyt>
+          )}
         </div>
       </section>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,12 +1,12 @@
-.empyt{
-    width: 46rem;
-    height: 15.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0.5rem;
-    border-top: 2px solid #333333;
-    width: 46rem;
-    color: #808080;
+.empyt {
+  width: 46rem;
+  height: 15.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 2px solid #333333;
+  width: 46rem;
+  color: #808080;
 }
